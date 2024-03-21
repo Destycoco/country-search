@@ -5,7 +5,7 @@ function CountryList() {
   const { countries } = useCountry();
   console.log(countries);
   return (
-    <div>
+    <div className="flex flex-wrap  justify-between gap-8 mx-auto  w-[85%]  m-auto">
       {countries?.map((country) => (
         <CountryItem country={country} key={country.name.common} /> // Return the CountryItem component
       ))}

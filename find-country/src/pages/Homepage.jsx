@@ -1,15 +1,25 @@
 // import { useCountry } from '../context/CountryProvider';
 import Body from '../components/Body';
-import Button from '../components/Button';
+// import Button from '../components/Button';
 import CountryList from '../components/CountryList';
 import NavBar from '../components/NavBar';
+
+import TopMenu from '../components/TopMenu';
 function Homepage() {
   return (
     <div className="">
       <NavBar />
       <Body>
-        <Button>
-          <svg
+        <TopMenu />
+        <CountryList />
+      </Body>
+    </div>
+  );
+}
+
+export default Homepage;
+{
+  /* <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -22,13 +32,5 @@ function Homepage() {
               strokeLinejoin="round"
               d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
             />
-          </svg>{' '}
-          Back
-        </Button>
-        <CountryList />
-      </Body>
-    </div>
-  );
+          </svg>{' '} */
 }
-
-export default Homepage;
