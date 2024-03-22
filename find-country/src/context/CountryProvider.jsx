@@ -4,7 +4,10 @@ import { createContext, useContext, useEffect, useReducer } from 'react';
 
 const initialState = {
   countries: [],
+  filteredCountries: [],
   status: 'loading',
+  regions: ['', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'],
+  currentRegion: '',
 };
 
 function reducer(state, action) {
@@ -15,13 +18,25 @@ function reducer(state, action) {
         countries: action.payload,
         status: 'received',
       };
+    case 'setRegion':
+      return {
+        ...state,
+        currentRegion: action.payload,
+      };
+    case 'filter':
+      return {
+        ...state,
+        filteredCountries: action.payload,
+      };
     default:
       return state;
   }
 }
 const CountryContext = createContext();
 export default function CountryProvider({ children }) {
-  const [{ countries }, dispatch] = useReducer(reducer, initialState);
+  const [{ countries, regions, currentRegion, filteredCountries }, dispatch] =
+    useReducer(reducer, initialState);
+  console.log(filteredCountries);
   // console.log(countries);
   useEffect(() => {
     async function loadData() {
@@ -38,8 +53,20 @@ export default function CountryProvider({ children }) {
     }
     loadData();
   }, []);
+  useEffect(() => {
+    function filterData() {
+      const newCountries = countries.filter((country) => {
+        return country.region?.includes(currentRegion);
+      });
+      dispatch({ type: 'filter', payload: newCountries });
+      // console.log(newCountries);
+    }
+    filterData();
+  }, [countries, currentRegion]);
   return (
-    <CountryContext.Provider value={{ countries }}>
+    <CountryContext.Provider
+      value={{ countries, regions, currentRegion, filteredCountries, dispatch }}
+    >
       {children}
     </CountryContext.Provider>
   );

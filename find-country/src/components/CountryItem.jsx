@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 // import { formatNumber } from '../Utilities/ExternalFunc';
 export default function CountryItem({ country }) {
-  console.log(country);
+  // console.log(country);
   return (
     <div className="w-[18rem] h-[22rem] shadow-md rounded-md overflow-hidden">
       <img
