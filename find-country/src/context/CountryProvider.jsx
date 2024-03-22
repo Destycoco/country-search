@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useReducer } from 'react';
 const initialState = {
   countries: [],
   filteredCountries: [],
+  searchCountry: '',
   status: 'loading',
   regions: ['', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'],
   currentRegion: '',
@@ -28,15 +29,28 @@ function reducer(state, action) {
         ...state,
         filteredCountries: action.payload,
       };
+    case 'search':
+      return {
+        ...state,
+        searchCountry: action.payload,
+      };
+    case 'getSearch':
+      return {
+        ...state,
+        searchedCountry: action.payload,
+      };
     default:
       return state;
   }
 }
 const CountryContext = createContext();
 export default function CountryProvider({ children }) {
-  const [{ countries, regions, currentRegion, filteredCountries }, dispatch] =
-    useReducer(reducer, initialState);
-  console.log(filteredCountries);
+  const [
+    { countries, regions, currentRegion, filteredCountries, searchCountry },
+    dispatch,
+    status,
+  ] = useReducer(reducer, initialState);
+  console.log(searchCountry);
   // console.log(countries);
   useEffect(() => {
     async function loadData() {
@@ -52,7 +66,8 @@ export default function CountryProvider({ children }) {
       }
     }
     loadData();
-  }, []);
+  }, [dispatch]);
+
   useEffect(() => {
     function filterData() {
       const newCountries = countries.filter((country) => {
@@ -62,10 +77,18 @@ export default function CountryProvider({ children }) {
       // console.log(newCountries);
     }
     filterData();
-  }, [countries, currentRegion]);
+  }, [countries, currentRegion, dispatch]);
   return (
     <CountryContext.Provider
-      value={{ countries, regions, currentRegion, filteredCountries, dispatch }}
+      value={{
+        countries,
+        regions,
+        currentRegion,
+        filteredCountries,
+        dispatch,
+        searchCountry,
+        status,
+      }}
     >
       {children}
     </CountryContext.Provider>
