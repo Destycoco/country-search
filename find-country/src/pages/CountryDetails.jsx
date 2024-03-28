@@ -12,9 +12,6 @@ function CountryDetails() {
   const details = countryDetails[0];
   const { dispatch, getCurrentCountry, currentCountry, status } = useCountry();
   const { name } = useParams();
-  // const p = [1, 2, 3, 3];
-  // console.log(Array.isArray(currentCountry));
-  // console.log(currentCountry);
   useEffect(() => {
     getCurrentCountry(name);
   }, [name, getCurrentCountry]);
@@ -37,13 +34,14 @@ function CountryDetails() {
   }
 
   console.log({ countryDetails });
-  // console.log({ region, population });
   if (countryDetails.length > 0) {
     return (
       <div>
         <NavBar />
-        <Button>Back</Button>
-        <CountryPair details={details} />
+        <div className="w-[85%] sm:w-[90%] m-auto">
+          <Button>Back</Button>
+          <CountryPair details={details} />
+        </div>
       </div>
     );
   }
