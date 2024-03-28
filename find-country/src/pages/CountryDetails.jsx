@@ -9,7 +9,7 @@ import CountryPair from '../components/CountryPair';
 
 function CountryDetails() {
   const [countryDetails, setCountryDetails] = useState({});
-  const details = countryDetails[0];
+  const details = countryDetails[1] ? countryDetails[1] : countryDetails[0];
   const { dispatch, getCurrentCountry, currentCountry, status } = useCountry();
   const { name } = useParams();
   useEffect(() => {
@@ -39,7 +39,7 @@ function CountryDetails() {
       <div>
         <NavBar />
         <div className="w-[85%] sm:w-[90%] m-auto">
-          <Button>Back</Button>
+          <Button to={-1}>Back</Button>
           <CountryPair details={details} />
         </div>
       </div>

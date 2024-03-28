@@ -15,19 +15,19 @@ function CountryPair({ details }) {
   console.log(countryData);
   function formatCountry(countryCode) {
     const country = countryCode.toUpperCase();
-    return countryData[country].name;
+    return countryData[country]?.name;
   }
 
   return (
-    <div className="sm:flex sm:flex-row items-start flex flex-col w-[100%] flex-wrap gap-12 border-red-400 border-solid border-2 sm:gap-16 md:gap-28- sm:items-center">
-      <div className="flex-1 w-[100%] md:h-[19rem] sm:h-[23rem]">
+    <div className="sm:flex sm:flex-row items-start flex flex-col w-[100%] flex-wrap gap-12 sm:gap-16 md:gap-28- sm:items-center">
+      <div className="flex-1 w-[100%]  sm:h-[23rem]">
         <img
           src={details.flags.png}
           alt={details.flags.alt}
           className="w-[100%] h-[100%] "
         />
       </div>
-      <div className="flex-1 w-[100%] border-blue-400 border-solid border-2">
+      <div className="flex-1 w-[100%]  ">
         <h1 className="font-bold text-3xl mb-8">{details.name.common}</h1>
 
         <div className="lg:flex justify-between mb-12 ">
@@ -69,7 +69,7 @@ function CountryPair({ details }) {
             <strong>Border Countries:</strong>{' '}
           </h2>
           <div className="flex flex-wrap ">
-            {details.borders.map((border) => (
+            {details.borders?.map((border) => (
               <p key={border} className="border-solid border-2 px-4 py-1 mr-2">
                 {formatCountry(border)}
               </p>
